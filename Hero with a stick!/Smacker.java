@@ -9,6 +9,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Smacker extends Actor
 {
     public int movementspeed;
+    public int lifes;
     
     public Smacker()
     {
@@ -25,6 +26,7 @@ public class Smacker extends Actor
     public void act()
     {
         movement();
+        smack();
     }
     
     /**
@@ -32,21 +34,53 @@ public class Smacker extends Actor
      */
     public void movement()
     {
+        int X = getX();
+        int Y = getY();
         if(Greenfoot.isKeyDown("d"))
         {
-            setLocation(getX()+movementspeed, getY());
+            X += movementspeed;
         }
         if(Greenfoot.isKeyDown("a"))
         {
-            setLocation(getX()-movementspeed, getY());
+            X -= movementspeed;
         }
         if(Greenfoot.isKeyDown("s"))
         {
-            setLocation(getX(), getY()+movementspeed);
+            Y += movementspeed;
         }
         if(Greenfoot.isKeyDown("w"))
         {
-            setLocation(getX(), getY()-movementspeed);
+            Y -= movementspeed;
+        }
+        setLocation(X, Y);
+    }
+    
+    /**
+     * 
+     */
+    public void smack()
+    {
+        int X = getX();
+        int Y = getY();
+        if(Greenfoot.isKeyDown("space"))
+        {
+            if(Greenfoot.isKeyDown("d"))
+            {
+                X += movementspeed;
+            }
+            if(Greenfoot.isKeyDown("a"))
+            {
+                X -= movementspeed;
+            }
+            if(Greenfoot.isKeyDown("s"))
+            {
+                Y += movementspeed;
+            }
+            if(Greenfoot.isKeyDown("w"))
+            {
+                Y -= movementspeed;
+            }
+            getWorld().addObject(new Stick(), getX(), getY());
         }
     }
 }
