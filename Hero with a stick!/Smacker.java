@@ -10,6 +10,8 @@ public class Smacker extends Actor
 {
     public int movementspeed;
     public int lifes;
+    public boolean hasStick;
+    public boolean[] lastMove = new boolean[4];
     
     public Smacker()
     {
@@ -18,6 +20,8 @@ public class Smacker extends Actor
         setImage(image);
         
         movementspeed = 4;
+        hasStick = false;
+        lastMove[0] = true;
     }
     /**
      * Act - do whatever the Smacker wants to do. This method is called whenever
@@ -36,23 +40,56 @@ public class Smacker extends Actor
     {
         int X = getX();
         int Y = getY();
+        boolean active = false;
         if(Greenfoot.isKeyDown("d"))
         {
-            X += movementspeed;
-        }
-        if(Greenfoot.isKeyDown("a"))
+            active = true;
+        } else if(Greenfoot.isKeyDown("a"))
         {
-            X -= movementspeed;
-        }
-        if(Greenfoot.isKeyDown("s"))
+            active = true;
+        } else if(Greenfoot.isKeyDown("s"))
         {
-            Y += movementspeed;
-        }
-        if(Greenfoot.isKeyDown("w"))
+            active = true;
+        } else if(Greenfoot.isKeyDown("w"))
         {
-            Y -= movementspeed;
+            active = true;
         }
-        setLocation(X, Y);
+        if(active)
+        {
+             if(Greenfoot.isKeyDown("d"))
+            {
+                X += movementspeed;
+                lastMove[0] = true;
+            } else 
+            {
+                lastMove[0] = false;
+            }
+            if(Greenfoot.isKeyDown("a"))
+            {
+                X -= movementspeed;
+                lastMove[1] = true;
+            } else 
+            {
+                lastMove[1] = false;
+            }
+            if(Greenfoot.isKeyDown("s"))
+            {
+                Y += movementspeed;
+                lastMove[2] = true;
+            } else
+            {
+                lastMove[2] = false;
+            }
+            if(Greenfoot.isKeyDown("w"))
+            {
+                Y -= movementspeed;
+                lastMove[3] = true;
+            } else 
+            {
+                lastMove[3] = false;
+            }
+            setLocation(X, Y);
+        }
     }
     
     /**
@@ -60,27 +97,78 @@ public class Smacker extends Actor
      */
     public void smack()
     {
-        int X = getX();
-        int Y = getY();
-        if(Greenfoot.isKeyDown("space"))
+        int X = 0;
+        int Y = 0;
+        int rotation = 0;
+        if(Greenfoot.isKeyDown("space") && !hasStick)
         {
-            if(Greenfoot.isKeyDown("d"))
+            if(lastMove[0] && lastMove[1])
             {
-                X += movementspeed;
+                lastMove[1] = false;
             }
-            if(Greenfoot.isKeyDown("a"))
+            if(lastMove[2] && lastMove[3])
             {
-                X -= movementspeed;
+                lastMove[2] = false;
+                lastMove[3] = false;
             }
-            if(Greenfoot.isKeyDown("s"))
+            
+            
+            if(lastMove[0])
             {
-                Y += movementspeed;
-            }
-            if(Greenfoot.isKeyDown("w"))
+                if(lastMove[2])
+                {
+                    //Rechts und unten
+                    X += getImage().getWidth();
+                    rotation = 0;
+                } else if(lastMove[3])
+                {
+                    //Rechts und oben
+                    Y -= getImage().getHeight();
+                    rotation = 270;
+                } else
+                {
+                    //Rechts
+                    X += getImage().getWidth();
+                    Y -= getImage().getHeight()/2;
+                    rotation = 315;
+                }
+            } else if(lastMove[1]) 
             {
-                Y -= movementspeed;
+                if(lastMove[2])
+                {
+                    //Links und unten
+                    Y += getImage().getHeight();
+                    rotation = 90;
+                } else if (lastMove[3])
+                {
+                    //Links und oben
+                    X -= getImage().getWidth();
+                    rotation = 180;
+                } else 
+                {
+                    //Links
+                    X -= getImage().getWidth();
+                    Y += getImage().getHeight()/2;
+                    rotation = 135;
+                }
+            } else 
+            {
+                if(lastMove[2])
+                {
+                    //Unten
+                    X += getImage().getWidth()/2;
+                    Y += getImage().getHeight();
+                    rotation = 45;
+                } else if (lastMove[3])
+                {
+                    //Oben
+                    X -= getImage().getWidth()/2;
+                    Y -= getImage().getHeight();
+                    rotation = 225;
+                } 
             }
-            getWorld().addObject(new Stick(), getX(), getY());
+            
+            getWorld().addObject(new Stick(rotation), getX()+X, getY()+Y);
         }
     }
 }

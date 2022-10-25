@@ -9,11 +9,13 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Stick extends Actor
 {
     
-    public Stick()
+    public Stick(int rotation)
     {
         GreenfootImage image = new GreenfootImage("Stick.png");
         image.scale(image.getWidth()/10, image.getHeight()/10);
         setImage(image);
+        
+        this.setRotation(rotation);
     }
     /**
      * Act - do whatever the Stick wants to do. This method is called whenever
