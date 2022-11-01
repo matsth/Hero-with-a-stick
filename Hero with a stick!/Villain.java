@@ -21,7 +21,7 @@ public class Villain extends Actor
         GreenfootImage image = new GreenfootImage("Villain1.png");
         image.scale(image.getWidth()/10, image.getHeight()/10);
         setImage(image);
-        Movementspeed = 4;
+        Movementspeed = 5;
         
     }
     public void VillainMove()
@@ -52,10 +52,20 @@ public class Villain extends Actor
         
         this.setLocation(this.getX() + X, this.getY() + Y);
         
-    }  
+    } 
+    public void Collision()
+    {
+        Smacker smacker = getWorld().getObjects(Smacker.class).get(0);
+        if(smacker.getX() == this.getX() && smacker.getY() == this.getY() )
+        {
+             getWorld().removeObject(this);
+        }
+    }
+
     public void act()
     {
         VillainMove();
+        Collision();
     }
     
     
