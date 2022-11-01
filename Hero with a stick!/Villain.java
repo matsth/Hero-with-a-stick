@@ -28,25 +28,58 @@ public class Villain extends Actor
     {
         int X = 0;
         int Y = 0;
+        int diff = 0;
         Smacker smacker = getWorld().getObjects(Smacker.class).get(0);
         if(smacker.getX() > this.getX())
         {
-            X+=Movementspeed;
+            diff = smacker.getX() - this.getX();
+            if(diff < 0)
+            {
+                diff = diff * (-1);
+            }
+            if (diff >= 20) 
+            {
+                X+=Movementspeed;
+            }
             
         }
         else if(smacker.getX() < this.getX())
         {
-            X-=Movementspeed;
+            diff = smacker.getX() - this.getX();
+            if(diff < 0)
+            {
+                diff = diff * (-1);
+            }
+            if (diff >= 20) 
+            {
+                X-=Movementspeed;
+            }
         
         }
         if(smacker.getY() > this.getY())
         {
-            Y+=Movementspeed;
+            diff = smacker.getY() - this.getY();
+            if(diff < 0)
+            {
+                diff = diff * (-1);
+            }
+            if (diff >= 20) 
+            {
+                Y+=Movementspeed;
+            }
             
         }
         else if(smacker.getY() < this.getY())
         {
-            Y-=Movementspeed;
+            diff = smacker.getY() - this.getY();
+            if(diff < 0)
+            {
+                diff = diff * (-1);
+            }
+            if (diff >= 20) 
+            {
+                Y-=Movementspeed;
+            }
         
         }
         
@@ -67,8 +100,6 @@ public class Villain extends Actor
         VillainMove();
         Collision();
     }
-    
-    
     
 }
 
