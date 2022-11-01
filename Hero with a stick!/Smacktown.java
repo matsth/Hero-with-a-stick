@@ -26,6 +26,10 @@ public class Smacktown extends World
         // Create a new world with 800x500 cells with a cell size of 1x1 pixels.
         super(800, 500, 1);
         
+        GreenfootImage image = new GreenfootImage("Background.png");
+        image.scale(image.getWidth()/3, image.getHeight()/3);
+        this.setBackground(image);
+        
         prepare();
         setPaintOrder(Smacker.class, Stick.class, Powerups.class, Villain.class);
     }
@@ -58,7 +62,7 @@ public class Smacktown extends World
             
             if(timer <= 0)
             {
-                this.stopped();
+                Greenfoot.stop();
             }
         }
     }
@@ -71,5 +75,10 @@ public class Smacktown extends World
     {
         Smacker smacker = this.getObjects(Smacker.class).get(0);
         showText("Lifes: " + smacker.lifes, 75, 25);
+        
+        if(smacker.lifes <= 0) 
+        {
+            Greenfoot.stop();
+        }
     }
 }

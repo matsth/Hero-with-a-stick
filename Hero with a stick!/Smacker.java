@@ -180,5 +180,14 @@ public class Smacker extends Actor
                 getWorld().addObject(new Stick(rotation, getImage().getWidth()), getX()+X, getY()+Y);
             }
         }
+        
+    }
+    
+    public void loselife(int dmg)
+    {
+        lifes -= 1;
+        Smacktown smacktown = (Smacktown)getWorld();
+        smacktown.showlife();
+        
     }
 }
