@@ -38,8 +38,8 @@ public class Smacker extends Actor
      */
     public void movement()
     {
-        int X = getX();
-        int Y = getY();
+        int X = 0;
+        int Y = 0;
         boolean active = false;
         if(Greenfoot.isKeyDown("d"))
         {
@@ -88,7 +88,13 @@ public class Smacker extends Actor
             {
                 lastMove[3] = false;
             }
-            setLocation(X, Y);
+            if(hasStick)
+            {
+                Stick stick = getWorld().getObjects(Stick.class).get(0);
+                stick.movewithSmacker(X, Y);
+            }
+            this.setLocation(getX() + X, getY() + Y);
+            
         }
     }
     
@@ -102,73 +108,76 @@ public class Smacker extends Actor
         int rotation = 0;
         if(Greenfoot.isKeyDown("space") && !hasStick)
         {
-            if(lastMove[0] && lastMove[1])
+            if(lastMove[0] || lastMove[1] || lastMove[2] || lastMove[3])
             {
-                lastMove[1] = false;
-            }
-            if(lastMove[2] && lastMove[3])
-            {
-                lastMove[2] = false;
-                lastMove[3] = false;
-            }
-            
-            
-            if(lastMove[0])
-            {
-                if(lastMove[2])
+                if(lastMove[0] && lastMove[1])
                 {
-                    //Rechts und unten
-                    X += getImage().getWidth();
-                    rotation = 0;
-                } else if(lastMove[3])
-                {
-                    //Rechts und oben
-                    Y -= getImage().getHeight();
-                    rotation = 270;
-                } else
-                {
-                    //Rechts
-                    X += getImage().getWidth();
-                    Y -= getImage().getHeight()/2;
-                    rotation = 315;
+                    lastMove[1] = false;
                 }
-            } else if(lastMove[1]) 
-            {
-                if(lastMove[2])
+                if(lastMove[2] && lastMove[3])
                 {
-                    //Links und unten
-                    Y += getImage().getHeight();
-                    rotation = 90;
-                } else if (lastMove[3])
+                    lastMove[2] = false;
+                    lastMove[3] = false;
+                }
+                
+                
+                if(lastMove[0])
                 {
-                    //Links und oben
-                    X -= getImage().getWidth();
-                    rotation = 180;
+                    if(lastMove[2])
+                    {
+                        //Rechts und unten
+                        X += getImage().getWidth();
+                        rotation = 0;
+                    } else if(lastMove[3])
+                    {
+                        //Rechts und oben
+                        Y -= getImage().getHeight();
+                        rotation = 270;
+                    } else
+                    {
+                        //Rechts
+                        X += getImage().getWidth();
+                        Y -= getImage().getHeight()/2;
+                        rotation = 315;
+                    }
+                } else if(lastMove[1]) 
+                {
+                    if(lastMove[2])
+                    {
+                        //Links und unten
+                        Y += getImage().getHeight();
+                        rotation = 90;
+                    } else if (lastMove[3])
+                    {
+                        //Links und oben
+                        X -= getImage().getWidth();
+                        rotation = 180;
+                    } else 
+                    {
+                        //Links
+                        X -= getImage().getWidth();
+                        Y += getImage().getHeight()/2;
+                        rotation = 135;
+                    }
                 } else 
                 {
-                    //Links
-                    X -= getImage().getWidth();
-                    Y += getImage().getHeight()/2;
-                    rotation = 135;
+                    if(lastMove[2])
+                    {
+                        //Unten
+                        X += getImage().getWidth()/2;
+                        Y += getImage().getHeight();
+                        rotation = 45;
+                    } else if (lastMove[3])
+                    {
+                        //Oben
+                        X -= getImage().getWidth()/2;
+                        Y -= getImage().getHeight();
+                        rotation = 225;
+                    } 
                 }
-            } else 
-            {
-                if(lastMove[2])
-                {
-                    //Unten
-                    X += getImage().getWidth()/2;
-                    Y += getImage().getHeight();
-                    rotation = 45;
-                } else if (lastMove[3])
-                {
-                    //Oben
-                    X -= getImage().getWidth()/2;
-                    Y -= getImage().getHeight();
-                    rotation = 225;
-                } 
+                hasStick = true;
+                getWorld().addObject(new Stick(rotation, getImage().getWidth()), getX()+X, getY()+Y);
             }
-            
-            getWorld().addObject(new Stick(rotation), getX()+X, getY()+Y);
         }
     }
 }

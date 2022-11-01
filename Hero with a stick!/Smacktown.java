@@ -21,6 +21,7 @@ public class Smacktown extends World
         prepare();
         setPaintOrder(Smacker.class, Stick.class, Powerups.class, Villain.class);
     }
+    
     /**
      * 
      */
