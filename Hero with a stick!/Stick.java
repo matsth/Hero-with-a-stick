@@ -23,7 +23,7 @@ public class Stick extends Actor
         rotationspeed = 5;
         
         moveset = rotation;
-        movedist = length/(rot/rotationspeed);
+        movedist = length*2/(rot/rotationspeed);
     }
     /**
      * Act - do whatever the Stick wants to do. This method is called whenever
@@ -54,16 +54,16 @@ public class Stick extends Actor
         switch(moveset)
         {
             case 315:
-                this.setLocation(this.getX(), this.getY() +  movedist);
+                this.setLocation(this.getX(), this.getY() +  movedist/2);
                 break;
             case 135:
-                this.setLocation(this.getX(), this.getY() - movedist);
+                this.setLocation(this.getX(), this.getY() - movedist/2);
                 break;
             case 45:
-                this.setLocation(this.getX() -  movedist, this.getY());
+                this.setLocation(this.getX() -  movedist/2, this.getY());
                 break;
             case 225:
-                this.setLocation(this.getX() +  movedist, this.getY());
+                this.setLocation(this.getX() +  movedist/2, this.getY());
                 break;
             case 0:
                 if(rot > threshhold)
