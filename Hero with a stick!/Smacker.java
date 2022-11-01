@@ -93,7 +93,7 @@ public class Smacker extends Actor
                 Stick stick = getWorld().getObjects(Stick.class).get(0);
                 stick.movewithSmacker(X, Y);
             }
-            this.setLocation(getX() + X, getY() + Y);
+            this.setLocation(this.getX() + X, this.getY() + Y);
             
         }
     }
@@ -126,18 +126,18 @@ public class Smacker extends Actor
                     if(lastMove[2])
                     {
                         //Rechts und unten
-                        X += getImage().getWidth();
+                        X += this.getImage().getWidth();
                         rotation = 0;
                     } else if(lastMove[3])
                     {
                         //Rechts und oben
-                        Y -= getImage().getHeight();
+                        Y -= this.getImage().getHeight();
                         rotation = 270;
                     } else
                     {
                         //Rechts
-                        X += getImage().getWidth();
-                        Y -= getImage().getHeight()/2;
+                        X += this.getImage().getWidth();
+                        Y -= this.getImage().getHeight()/2;
                         rotation = 315;
                     }
                 } else if(lastMove[1]) 
@@ -145,18 +145,18 @@ public class Smacker extends Actor
                     if(lastMove[2])
                     {
                         //Links und unten
-                        Y += getImage().getHeight();
+                        Y += this.getImage().getHeight();
                         rotation = 90;
                     } else if (lastMove[3])
                     {
                         //Links und oben
-                        X -= getImage().getWidth();
+                        X -= this.getImage().getWidth();
                         rotation = 180;
                     } else 
                     {
                         //Links
-                        X -= getImage().getWidth();
-                        Y += getImage().getHeight()/2;
+                        X -= this.getImage().getWidth();
+                        Y += this.getImage().getHeight()/2;
                         rotation = 135;
                     }
                 } else 
@@ -164,14 +164,14 @@ public class Smacker extends Actor
                     if(lastMove[2])
                     {
                         //Unten
-                        X += getImage().getWidth()/2;
-                        Y += getImage().getHeight();
+                        X += this.getImage().getWidth()/2;
+                        Y += this.getImage().getHeight();
                         rotation = 45;
                     } else if (lastMove[3])
                     {
                         //Oben
-                        X -= getImage().getWidth()/2;
-                        Y -= getImage().getHeight();
+                        X -= this.getImage().getWidth()/2;
+                        Y -= this.getImage().getHeight();
                         rotation = 225;
                     } 
                 }

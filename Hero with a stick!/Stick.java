@@ -11,18 +11,19 @@ public class Stick extends Actor
     public int rot;
     public int rotationspeed;
     public int moveset;
-    public int length;
+    public int movedist;
     public Stick(int rotation, int length)
     {
         GreenfootImage image = new GreenfootImage("Stick.png");
         image.scale(image.getWidth()/10, image.getHeight()/10);
         setImage(image);
         
-        moveset = rotation;
-        
         this.setRotation(rotation);
         rot = 90;
         rotationspeed = 5;
+        
+        moveset = rotation;
+        movedist = length/(rot/rotationspeed);
     }
     /**
      * Act - do whatever the Stick wants to do. This method is called whenever
@@ -49,22 +50,28 @@ public class Stick extends Actor
     
     public void move()
     {
+        int threshhold = 45;
         switch(moveset)
         {
             case 315:
-                
+                this.setLocation(this.getX(), this.getY() +  movedist);
                 break;
             case 135:
-                
+                this.setLocation(this.getX(), this.getY() - movedist);
                 break;
             case 45:
-                
+                this.setLocation(this.getX() -  movedist, this.getY());
                 break;
             case 225:
-                
+                this.setLocation(this.getX() +  movedist, this.getY());
                 break;
             case 0:
-                
+                if(rot > threshhold)
+                {
+                    this.setLocation(this.getX(), this.getY() +  movedist);
+                } else {
+                    this.setLocation(this.getX() -  movedist, this.getY());
+                }
                 break;
             case 270:
                 
