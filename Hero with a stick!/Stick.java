@@ -74,13 +74,28 @@ public class Stick extends Actor
                 }
                 break;
             case 270:
-                
+                if(rot > threshhold)
+                {
+                    this.setLocation(this.getX() + movedist, this.getY());
+                } else {
+                    this.setLocation(this.getX(), this.getY() + movedist);
+                }
                 break;
             case 90:
-                
+                if(rot > threshhold)
+                {
+                    this.setLocation(this.getX() - movedist, this.getY());
+                } else {
+                    this.setLocation(this.getX(), this.getY() - movedist);
+                }
                 break;
             case 180:
-                
+                if(rot > threshhold)
+                {
+                    this.setLocation(this.getX(), this.getY() - movedist);
+                } else {
+                    this.setLocation(this.getX() + movedist, this.getY());
+                }
                 break;
         }
     }
