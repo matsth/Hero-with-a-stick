@@ -1,10 +1,8 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Smacktown here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * Smacktown ist die Spiel Welt in der die Villains gespawnd werden
+ * und der Timer gezählt wird.
  */
 public class Smacktown extends World
 {
@@ -19,7 +17,7 @@ public class Smacktown extends World
     
     /**
      * Constructor for objects of class Smacktown.
-     * 
+     * Das Bild wird neu gesetzt damit die grösse stimmt.
      */
     public Smacktown()
     {    
@@ -35,7 +33,8 @@ public class Smacktown extends World
     }
     
     /**
-     * 
+     * Hier ist das Setup für die Welt.
+     * Dass heisst es wird der Smacker der Timer und die Leben hinzugefügt.
      */
     public void prepare()
     {
@@ -43,12 +42,18 @@ public class Smacktown extends World
         showTime();
         showlife();
     }
-    
+    /**
+     * Standard Act Methode.
+     */
     public void act()
     {
         timer();
     }
-    
+    /**
+     * Der timer wird in dieser Methode heruntergezählt.
+     * 60 ticks von greenfoot entsprechen ca 1 sekunde.
+     * Falls der Timer auf 0 ist wird das Spiel gestopped.
+     */
     public void timer()
     {
         ticker++;
@@ -67,10 +72,17 @@ public class Smacktown extends World
         }
     }
     
+    /**
+     * Zeige die aktuelle Zeit an.
+     */
     private void showTime(){
         showText("Time: " + timer, 690, 25);
     }
     
+    /**
+     * Zeige die Leben an.
+     * Falls die Leben kleiner gleich 0 sind wird das Spiel angehalten.
+     */
     public void showlife()
     {
         Smacker smacker = this.getObjects(Smacker.class).get(0);
