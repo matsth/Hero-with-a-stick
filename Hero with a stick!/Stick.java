@@ -146,4 +146,12 @@ public class Stick extends Actor
     {
         this.setLocation(getX() + x, getY() + y);
     }
+    
+    /**
+     * 
+     */
+    public void smackvillain()
+    {
+        
+    }
 }

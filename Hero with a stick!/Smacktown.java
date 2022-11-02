@@ -9,11 +9,22 @@ public class Smacktown extends World
     public int maxVillain;
     public int currentVillain = 0;
     
-    public int maxPowers;
-    public int currentPowers = 0;
-    
     public int timer = 300;
     private int ticker = 0;
+    
+    public int maxPowers = 1;
+    public int currentPowers = 0;
+
+    public int Powerincreasoffset = 90;
+    public int powerincreas = timer - Powerincreasoffset;
+    
+    public int spawntimerpowerup = timer;
+    public int spawntimerpowerupoffset = 15;
+    
+    public int speedboost = timer;
+    public int smackboost = timer;
+    
+
     
     /**
      * Constructor for objects of class Smacktown.
@@ -48,7 +59,51 @@ public class Smacktown extends World
     public void act()
     {
         timer();
+        spawner();
+        powerup();
     }
+    /**
+     * Erzeugt gegner und Powerups und erhöht deren capazität.
+     */
+    public void spawner()
+    {
+        powerupupper();
+        powerupspawner();
+    }
+    
+    /**
+     * Erzeugt alle spawntimerpowerupoffset Sekunden ein Powerup falls es weniger als die maximal Powerups hat.
+     */
+    public void powerupspawner()
+    {
+        if(spawntimerpowerup >= timer && maxPowers > currentPowers)
+        {
+            addObject(new Powerups(), Greenfoot.getRandomNumber(this.getWidth() - 60) + 30, Greenfoot.getRandomNumber(this.getHeight() - 60) + 30);
+            
+            spawntimerpowerup -= spawntimerpowerupoffset;
+            currentPowers++;
+        }
+    }
+    
+    /**
+     * Erhöht die Maximal anzahl an Powerups die erzeugt werden können.
+     * Erhöht die geschwindigkeit in der die Powerups erzeugt werden.
+     */
+    public void powerupupper()
+    {
+        if(powerincreas >= timer)
+        {
+            powerincreas -= Powerincreasoffset;
+            maxPowers++;
+            
+            if (spawntimerpowerupoffset >= 3)
+            {
+                spawntimerpowerupoffset -= 2;
+                spawntimerpowerup += 2;
+            }
+        }
+    }
+    
     /**
      * Der timer wird in dieser Methode heruntergezählt.
      * 60 ticks von greenfoot entsprechen ca 1 sekunde.
@@ -93,4 +148,43 @@ public class Smacktown extends World
             Greenfoot.stop();
         }
     }
+    
+    /**
+     * Sorgt dafür das Powerups die über eine Zeit laufen solange aktiv sind.
+     */
+    public void powerup()
+    {
+        if(speedboost < timer)
+        {
+            speedboster();
+        }
+        if (smackboost < timer)
+        {
+            smackboster();
+        }
+    }
+    
+    /**
+     * Lässt die movement function von Smacker nochmals laufen.
+     */
+    public void speedboster()
+    {
+        Smacker smacker = getObjects(Smacker.class).get(0);
+        
+        smacker.movement();
+    }
+    
+    /**
+     * Lässt die rotate function von Stick nochmals laufen.
+     */
+    public void smackboster()
+    {
+        if(!getObjects(Stick.class).isEmpty())
+        {
+            Stick stick = getObjects(Stick.class).get(0);
+        
+            stick.rotate();
+        }
+    }
+    
 }

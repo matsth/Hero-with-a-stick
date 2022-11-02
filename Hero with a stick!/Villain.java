@@ -105,9 +105,9 @@ public class Villain extends Actor
      */
     public void Collision()
     {
-        Smacker smacker = getWorld().getObjects(Smacker.class).get(0);
+        Smacker smacker = (Smacker)getOneIntersectingObject(Smacker.class);
         
-        if(this.isTouching(Smacker.class)){
+        if(smacker != null){
             smacker.loselife(1);
             getWorld().removeObject(this);
         }

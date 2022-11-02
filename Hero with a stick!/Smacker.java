@@ -109,6 +109,20 @@ public class Smacker extends Actor
             this.setLocation(this.getX() + X, this.getY() + Y);
             
         }
+        
+        touchpowerup();
+    }
+    
+    /**
+     * activate touching Powerup
+     */
+    public void touchpowerup()
+    {
+        Powerups powerups = (Powerups)getOneIntersectingObject(Powerups.class);
+        
+        if(powerups != null){
+            powerups.Powerup();
+        }
     }
     
     /**
