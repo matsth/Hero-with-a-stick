@@ -18,7 +18,7 @@ public class Villain extends Actor
         GreenfootImage image = new GreenfootImage("Villain1.png");
         image.scale(image.getWidth()/10, image.getHeight()/10);
         setImage(image);
-        Movementspeed = 5;
+        Movementspeed = 2;
         
     }
     

@@ -28,7 +28,7 @@ public class Stick extends Actor
     public Stick(int rotation, int length)
     {
         GreenfootImage image = new GreenfootImage("Stick.png");
-        image.scale(image.getWidth()/10, image.getHeight()/10);
+        image.scale(image.getWidth()/8, image.getHeight()/10);
         setImage(image);
         
         this.setRotation(rotation);
@@ -60,7 +60,9 @@ public class Stick extends Actor
         {
             this.setRotation(this.getRotation()+rotationspeed);
             rot -= rotationspeed;
+            smackvillain();
             move();
+            smackvillain();
         } else {
             Smacker smacker = getWorld().getObjects(Smacker.class).get(0);
             smacker.hasStick = false;
@@ -152,6 +154,11 @@ public class Stick extends Actor
      */
     public void smackvillain()
     {
+        Villain villain = (Villain)getOneIntersectingObject(Villain.class);
         
+        if(villain != null){
+            getWorld().removeObject(villain);
+            ((Smacktown)getWorld()).villainssmacked++;
+        }
     }
 }

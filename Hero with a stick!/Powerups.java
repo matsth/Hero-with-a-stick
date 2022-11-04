@@ -78,6 +78,7 @@ public class Powerups extends Actor
     {
         if(!getWorld().getObjects(Villain.class).isEmpty())
         {
+            ((Smacktown)getWorld()).villainssmacked += getWorld().getObjects(Villain.class).size();
             getWorld().removeObjects(getWorld().getObjects(Villain.class));
         }
     }

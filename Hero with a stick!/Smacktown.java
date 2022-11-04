@@ -6,10 +6,13 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Smacktown extends World
 {
-    public int maxVillain;
+    public int maxVillain = 7;
     public int currentVillain = 0;
     
-    public int timer = 300;
+    public int villainssmacked = 0;
+    
+    public int starttime = 300;
+    public int timer = starttime;
     private int ticker = 0;
     
     public int maxPowers = 1;
@@ -122,7 +125,7 @@ public class Smacktown extends World
             
             if(timer <= 0)
             {
-                Greenfoot.stop();
+                gameend(true);
             }
         }
     }
@@ -145,7 +148,7 @@ public class Smacktown extends World
         
         if(smacker.lifes <= 0) 
         {
-            Greenfoot.stop();
+            gameend(false);
         }
     }
     
@@ -187,4 +190,14 @@ public class Smacktown extends World
         }
     }
     
+    /**
+     * Zum Abschlussscreen wechseln.
+     */
+    public void gameend(boolean won)
+    {
+        Smacker smacker = this.getObjects(Smacker.class).get(0);
+        
+        Endscreen endscreen = new Endscreen(starttime - timer, won, smacker.lifes, villainssmacked);
+        Greenfoot.setWorld(endscreen);
+    }
 }

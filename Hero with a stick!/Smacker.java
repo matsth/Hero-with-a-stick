@@ -55,14 +55,8 @@ public class Smacker extends Actor
     {
         int X = 0;
         int Y = 0;
-        boolean active = false;
-        //Test if move.
+
         if(Greenfoot.isKeyDown("d") || Greenfoot.isKeyDown("a") || Greenfoot.isKeyDown("s") || Greenfoot.isKeyDown("w"))
-        {
-            active = true;
-        }
-        //aktual Movement
-        if(active)
         {
             //Rechts bewegen
              if(Greenfoot.isKeyDown("d"))
