@@ -13,6 +13,10 @@ public class Smacker extends Actor
     public boolean hasStick;
     public boolean[] lastMove = new boolean[4];
     
+    /**
+     * Standart Konstruktor.
+     * Das Bild wird gesesetz und die anderen Variablen.
+     */
     public Smacker()
     {
         GreenfootImage image = new GreenfootImage("Smacker.png");
@@ -35,28 +39,26 @@ public class Smacker extends Actor
     }
     
     /**
+     * Zuerst wird getestet ob ein bewegungstaste gedrückt wird.
+     * Falls nicht wird nicht bewegt.
      * 
+     * Danach wird jede Taste durchgetestet und der Array lastMove entsprechen gesetzt.
+     * 
+     * lastMove[0]: Nach Rechts bewegen.
+     * lastMove[1]: Nach Links bewegen.
+     * lastMove[2]: Nach Unten bewegen.
+     * lastMove[3]: Nach Oben bewegen.
+     * 
+     * Falls ein Stick aktiv ist wird dieser auch bewegt.
      */
     public void movement()
     {
         int X = 0;
         int Y = 0;
-        boolean active = false;
-        if(Greenfoot.isKeyDown("d"))
+
+        if(Greenfoot.isKeyDown("d") || Greenfoot.isKeyDown("a") || Greenfoot.isKeyDown("s") || Greenfoot.isKeyDown("w"))
         {
-            active = true;
-        } else if(Greenfoot.isKeyDown("a"))
-        {
-            active = true;
-        } else if(Greenfoot.isKeyDown("s"))
-        {
-            active = true;
-        } else if(Greenfoot.isKeyDown("w"))
-        {
-            active = true;
-        }
-        if(active)
-        {
+            //Rechts bewegen
              if(Greenfoot.isKeyDown("d"))
             {
                 X += movementspeed;
@@ -65,6 +67,7 @@ public class Smacker extends Actor
             {
                 lastMove[0] = false;
             }
+            //Links bewegen
             if(Greenfoot.isKeyDown("a"))
             {
                 X -= movementspeed;
@@ -73,6 +76,7 @@ public class Smacker extends Actor
             {
                 lastMove[1] = false;
             }
+            //Unten bewegen
             if(Greenfoot.isKeyDown("s"))
             {
                 Y += movementspeed;
@@ -81,6 +85,7 @@ public class Smacker extends Actor
             {
                 lastMove[2] = false;
             }
+            //Oben bewegen
             if(Greenfoot.isKeyDown("w"))
             {
                 Y -= movementspeed;
@@ -89,6 +94,7 @@ public class Smacker extends Actor
             {
                 lastMove[3] = false;
             }
+            //Fals ein Stick aktiv ist diesen Bewegen
             if(hasStick)
             {
                 Stick stick = getWorld().getObjects(Stick.class).get(0);
@@ -97,10 +103,36 @@ public class Smacker extends Actor
             this.setLocation(this.getX() + X, this.getY() + Y);
             
         }
+        
+        touchpowerup();
     }
     
     /**
+     * activate touching Powerup
+     */
+    public void touchpowerup()
+    {
+        Powerups powerups = (Powerups)getOneIntersectingObject(Powerups.class);
+        
+        if(powerups != null){
+            powerups.Powerup();
+        }
+    }
+    
+    /**
+     * Falls man keinen Stick hat und space drückt erzeugt man einen
+     * Stick um Gegner zu smacken.
      * 
+     * Danach wird getestet ob es einen aktiven lastMove[] gibt.
+     * Falls gleichzeitig nach Links und Rechts bewegt wird.
+     * Wird nach Rechts geschlagen.
+     * 
+     * Falls gleichzeitig nach Unten und Oben bewegt wird nach Oben geschlagen.
+     * 
+     * Danach werden die Entsprechende Rotation und Position für die
+     * 8 unterschidlichen Movements erzeugt.
+     * 
+     * Danach wird der Stick erzeugt und die hasStick variable true gesetzt.
      */
     public void smack()
     {
@@ -117,7 +149,11 @@ public class Smacker extends Actor
                 }
                 if(lastMove[2] && lastMove[3])
                 {
+<<<<<<< HEAD
                     lastMove[3] = false;
+=======
+                    lastMove[2] = false;
+>>>>>>> f4da3be3f9c4a570d05b375e4e71de8be6bded49
                 }
                 
                 
@@ -182,9 +218,13 @@ public class Smacker extends Actor
         
     }
     
+    /**
+     * Mit dieser Methode kann das Leben des Smacker reduziert werden und
+     * mit der showlife Methode auf dem Screen angepasst werden.
+     */
     public void loselife(int dmg)
     {
-        lifes -= 1;
+        lifes -= dmg;
         Smacktown smacktown = (Smacktown)getWorld();
         smacktown.showlife();
         
