@@ -149,11 +149,8 @@ public class Smacker extends Actor
                 }
                 if(lastMove[2] && lastMove[3])
                 {
-<<<<<<< HEAD
                     lastMove[3] = false;
-=======
                     lastMove[2] = false;
->>>>>>> f4da3be3f9c4a570d05b375e4e71de8be6bded49
                 }
                 
                 
