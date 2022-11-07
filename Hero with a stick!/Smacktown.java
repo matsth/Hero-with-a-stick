@@ -183,7 +183,7 @@ public class Smacktown extends World
     {
         if(villainpowerup >= timer)
         {
-            if(Greenfoot.getRandomNumber(4) >= 3)
+            if(villainspawnoffset % 2 == 0)
             {
                 villainspawnoffset--;
                 if(villainspawnoffset <= 0)

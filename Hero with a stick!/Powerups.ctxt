@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Powerups
-comment0.text=\r\n\ P\r\n
+comment0.text=\r\n\ Powerups\ geben\ dem\ Smacker\ Temporere\ Buffs,\ Permanente\ lebeben\ oder\ \u00E4nderen\ die\ Welt.\r\n
 comment1.params=
 comment1.target=Powerups()
 comment1.text=\r\n\ Constructor\ sets\ Powertype\ at\ random\ an\ Replace\ picture.\r\n

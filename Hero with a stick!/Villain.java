@@ -20,7 +20,7 @@ public class Villain extends Actor
         switch(Type)
         {
             //Schnellerer Villain mit weniger leben
-            case 1:
+            case 2:
                 image = new GreenfootImage("Villain2.png");
                 image.scale(image.getWidth()/15, image.getHeight()/15);
                 setImage(image);
@@ -30,7 +30,7 @@ public class Villain extends Actor
                 break;
             
             // Langsamer Villain aber dafür hat er mehr leben.
-            case 2:
+            case 1:
                 image = new GreenfootImage("Villain3.png");
                 image.scale(image.getWidth()/5, image.getHeight()/5);
                 setImage(image);
