@@ -1,17 +1,14 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Endscreen here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * Das ist der Endscreen mit den Passenden Bildern und Statistiken.
  */
 public class Endscreen extends World
 {
 
     /**
      * Constructor for objects of class Endscreen.
-     * 
+     * Setzt das Entsprechende Bild falls man gewonnen hat und zeigt weitere Daten an.
      */
     public Endscreen(int survived, boolean won, int lifes, int villainssmacked)
     {    
@@ -30,9 +27,9 @@ public class Endscreen extends World
         image.scale(image.getWidth()/3, image.getHeight()/3);
         this.setBackground(image);
         
-        showText("Zeit überlebt: " + survived, 200, 250);
-        showText("Villains besigt: " + villainssmacked, 400, 250);
-        showText("Leben übrig: " + lifes, 600, 250);
+        addObject(new Message("Zeit überlebt: " + survived), getWidth()/4 - getWidth()/10, getHeight()/2);
+        addObject(new Message("Villains besigt: " + villainssmacked), getWidth()/2, getHeight()/2);
+        addObject(new Message("Leben übrig: " + lifes), getWidth() - getWidth()/4 + getWidth()/10, getHeight()/2);
     }
     
     

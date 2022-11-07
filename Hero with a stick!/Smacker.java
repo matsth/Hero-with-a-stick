@@ -1,15 +1,15 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Smacker here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * Smacker ist der Character der der Spieler kontrolliert.
  */
 public class Smacker extends Actor
 {
     public int movementspeed;
     public int lifes;
+    public int dmg;
+    public int attackspeed;
+    
     public boolean hasStick;
     public boolean[] lastMove = new boolean[4];
     
@@ -23,7 +23,9 @@ public class Smacker extends Actor
         image.scale(image.getWidth()/10, image.getHeight()/10);
         setImage(image);
         
-        lifes = 3;
+        dmg = 1;
+        attackspeed = 5;
+        lifes = 6;
         movementspeed = 4;
         hasStick = false;
         lastMove[0] = true;
@@ -48,6 +50,7 @@ public class Smacker extends Actor
      * lastMove[1]: Nach Links bewegen.
      * lastMove[2]: Nach Unten bewegen.
      * lastMove[3]: Nach Oben bewegen.
+     * Diese Variablen sind wichtig falls mit space angegriffen wird.
      * 
      * Falls ein Stick aktiv ist wird dieser auch bewegt.
      */
@@ -108,7 +111,7 @@ public class Smacker extends Actor
     }
     
     /**
-     * activate touching Powerup
+     * Testet ob ein Powerup berührt wird und falls ja wird es aktiviert.
      */
     public void touchpowerup()
     {
@@ -123,6 +126,10 @@ public class Smacker extends Actor
      * Falls man keinen Stick hat und space drückt erzeugt man einen
      * Stick um Gegner zu smacken.
      * 
+     * Arrowkey:
+     * Je nach Arrowkey wird ein anderen schlagort ausgewählt.
+     * 
+     * Space:
      * Danach wird getestet ob es einen aktiven lastMove[] gibt.
      * Falls gleichzeitig nach Links und Rechts bewegt wird.
      * Wird nach Rechts geschlagen.
@@ -139,80 +146,132 @@ public class Smacker extends Actor
         int X = 0;
         int Y = 0;
         int rotation = 0;
-        if(Greenfoot.isKeyDown("space") && !hasStick)
+        if(!hasStick)
         {
-            if(lastMove[0] || lastMove[1] || lastMove[2] || lastMove[3])
+            //Mit Pfeiltasten schlagen.
+            if(Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("down") || Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("left"))
             {
-                if(lastMove[0] && lastMove[1])
-                {
-                    lastMove[1] = false;
-                }
-                if(lastMove[2] && lastMove[3])
-                {
-                    lastMove[3] = false;
-                    lastMove[2] = false;
-                }
-                
-                
-                if(lastMove[0])
-                {
-                    if(lastMove[2])
+                    if(Greenfoot.isKeyDown("right"))
                     {
-                        //Rechts und unten
-                        X += this.getImage().getWidth();
-                        rotation = 0;
-                    } else if(lastMove[3])
+                        if(Greenfoot.isKeyDown("down"))
+                        {
+                            //Rechts und unten
+                            X += this.getImage().getWidth();
+                            rotation = 0;
+                        } else if(Greenfoot.isKeyDown("up"))
+                        {
+                            //Rechts und oben
+                            Y -= this.getImage().getHeight();
+                            rotation = 270;
+                        } else
+                        {
+                            //Rechts
+                            X += this.getImage().getWidth();
+                            Y -= this.getImage().getHeight()/2;
+                            rotation = 315;
+                        }
+                    } else if(Greenfoot.isKeyDown("left")) 
                     {
-                        //Rechts und oben
-                        Y -= this.getImage().getHeight();
-                        rotation = 270;
-                    } else
-                    {
-                        //Rechts
-                        X += this.getImage().getWidth();
-                        Y -= this.getImage().getHeight()/2;
-                        rotation = 315;
-                    }
-                } else if(lastMove[1]) 
-                {
-                    if(lastMove[2])
-                    {
-                        //Links und unten
-                        Y += this.getImage().getHeight();
-                        rotation = 90;
-                    } else if (lastMove[3])
-                    {
-                        //Links und oben
-                        X -= this.getImage().getWidth();
-                        rotation = 180;
+                        if(Greenfoot.isKeyDown("down"))
+                        {
+                            //Links und unten
+                            Y += this.getImage().getHeight();
+                            rotation = 90;
+                        } else if (Greenfoot.isKeyDown("up"))
+                        {
+                            //Links und oben
+                            X -= this.getImage().getWidth();
+                            rotation = 180;
+                        } else 
+                        {
+                            //Links
+                            X -= this.getImage().getWidth();
+                            Y += this.getImage().getHeight()/2;
+                            rotation = 135;
+                        }
                     } else 
                     {
-                        //Links
-                        X -= this.getImage().getWidth();
-                        Y += this.getImage().getHeight()/2;
-                        rotation = 135;
+                        if(Greenfoot.isKeyDown("down"))
+                        {
+                            //Unten
+                            X += this.getImage().getWidth()/2;
+                            Y += this.getImage().getHeight();
+                            rotation = 45;
+                        } else if (Greenfoot.isKeyDown("up"))
+                        {
+                            //Oben
+                            X -= this.getImage().getWidth()/2;
+                            Y -= this.getImage().getHeight();
+                            rotation = 225;
+                        } 
                     }
-                } else 
-                {
-                    if(lastMove[2])
+                    hasStick = true;
+                    getWorld().addObject(new Stick(rotation, getImage().getWidth(), dmg, attackspeed), getX()+X, getY()+Y);
+                    
+            //Mit Space schlagen
+            } else if(Greenfoot.isKeyDown("space"))
+            {
+                if(lastMove[0] || lastMove[1] || lastMove[2] || lastMove[3])
+                {              
+                    if(lastMove[0])
                     {
-                        //Unten
-                        X += this.getImage().getWidth()/2;
-                        Y += this.getImage().getHeight();
-                        rotation = 45;
-                    } else if (lastMove[3])
+                        if(lastMove[2])
+                        {
+                            //Rechts und unten
+                            X += this.getImage().getWidth();
+                            rotation = 0;
+                        } else if(lastMove[3])
+                        {
+                            //Rechts und oben
+                            Y -= this.getImage().getHeight();
+                            rotation = 270;
+                        } else
+                        {
+                            //Rechts
+                            X += this.getImage().getWidth();
+                            Y -= this.getImage().getHeight()/2;
+                            rotation = 315;
+                        }
+                    } else if(lastMove[1]) 
                     {
-                        //Oben
-                        X -= this.getImage().getWidth()/2;
-                        Y -= this.getImage().getHeight();
-                        rotation = 225;
-                    } 
+                        if(lastMove[2])
+                        {
+                            //Links und unten
+                            Y += this.getImage().getHeight();
+                            rotation = 90;
+                        } else if (lastMove[3])
+                        {
+                            //Links und oben
+                            X -= this.getImage().getWidth();
+                            rotation = 180;
+                        } else 
+                        {
+                            //Links
+                            X -= this.getImage().getWidth();
+                            Y += this.getImage().getHeight()/2;
+                            rotation = 135;
+                        }
+                    } else 
+                    {
+                        if(lastMove[2])
+                        {
+                            //Unten
+                            X += this.getImage().getWidth()/2;
+                            Y += this.getImage().getHeight();
+                            rotation = 45;
+                        } else if (lastMove[3])
+                        {
+                            //Oben
+                            X -= this.getImage().getWidth()/2;
+                            Y -= this.getImage().getHeight();
+                            rotation = 225;
+                        } 
+                    }
+                    hasStick = true;
+                    getWorld().addObject(new Stick(rotation, getImage().getWidth(), dmg, attackspeed), getX()+X, getY()+Y);
                 }
-                hasStick = true;
-                getWorld().addObject(new Stick(rotation, getImage().getWidth()), getX()+X, getY()+Y);
             }
         }
-        
     }
     
     /**
@@ -224,6 +283,5 @@ public class Smacker extends Actor
         lifes -= dmg;
         Smacktown smacktown = (Smacktown)getWorld();
         smacktown.showlife();
-        
     }
 }

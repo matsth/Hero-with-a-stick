@@ -2,30 +2,45 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
  * Smacktown ist die Spiel Welt in der die Villains gespawnd werden
- * und der Timer gezählt wird.
+ * und der Timer gezählt wird. Die Villains und powerups schneller spawnen.
  */
 public class Smacktown extends World
 {
-    public int maxVillain = 7;
+    public int starttime = 100;
+    
+    public int maxVillain = 10;
     public int currentVillain = 0;
     
-    public int villainssmacked = 0;
+    public int villainlastspawn = starttime;
+    public int villainspawnoffset = 4;
+    public int villainspawnrepeater = 3;
     
-    public int starttime = 300;
+    public int villainpowerupoffset = 10;
+    public int villainpowerup = starttime - villainpowerupoffset;
+    
+    public int allvillains = 3;
+    public int villainnewvillainoffset = starttime/allvillains;
+    public int villainnewvillain = starttime - villainnewvillainoffset;
+    public int villainsunlocked = 1;
+    
+    public int villainssmacked = 0;
+    public int needvillainforlvlup = 5;
+    public double lvlupoffset = 1.5;
+    
     public int timer = starttime;
     private int ticker = 0;
     
-    public int maxPowers = 1;
+    public int maxPowers = 3;
     public int currentPowers = 0;
 
-    public int Powerincreasoffset = 90;
-    public int powerincreas = timer - Powerincreasoffset;
+    public int Powerincreasoffset = 20;
+    public int powerincreas = starttime - Powerincreasoffset;
     
-    public int spawntimerpowerup = timer;
-    public int spawntimerpowerupoffset = 15;
+    public int spawntimerpowerup = starttime;
+    public int spawntimerpowerupoffset = 8;
     
-    public int speedboost = timer;
-    public int smackboost = timer;
+    public int speedboost = starttime;
+    public int smackboost = starttime;
     
 
     
@@ -36,14 +51,14 @@ public class Smacktown extends World
     public Smacktown()
     {    
         // Create a new world with 800x500 cells with a cell size of 1x1 pixels.
-        super(800, 500, 1);
+        super(1200, 800, 1);
         
         GreenfootImage image = new GreenfootImage("Background.png");
-        image.scale(image.getWidth()/3, image.getHeight()/3);
+        image.scale(image.getWidth()/2, image.getHeight()/2);
         this.setBackground(image);
         
         prepare();
-        setPaintOrder(Smacker.class, Stick.class, Powerups.class, Villain.class);
+        setPaintOrder(Message.class, LVLUP.class, Smacker.class, Stick.class, Powerups.class, Villain.class);
     }
     
     /**
@@ -52,9 +67,16 @@ public class Smacktown extends World
      */
     public void prepare()
     {
-        addObject(new Smacker(), 400, 250);
-        showTime();
-        showlife();
+        addObject(new Smacker(), getWidth()/2, getHeight()/2);
+        //Add Timer
+        addObject(new Message("Time: " + timer), getWidth() - getWidth()/10, getHeight()/20);
+        
+        //Add Lifes
+        Smacker smacker = this.getObjects(Smacker.class).get(0);
+        addObject(new Message("Lifes: " + smacker.lifes), getWidth()/10, getHeight()/20);
+        
+        //Add villains
+        addObject(new Message("Villains smacked: " + villainssmacked + " need " + (needvillainforlvlup - villainssmacked) + " more for lvl up"), getWidth()/2, getHeight()/20);
     }
     /**
      * Standard Act Methode.
@@ -62,8 +84,48 @@ public class Smacktown extends World
     public void act()
     {
         timer();
-        spawner();
         powerup();
+        lvlup();
+    }
+    /**
+     * Falls der Smacker genügend Villains besigt hat krigt er ein lvlup
+     */
+    public void lvlup()
+    {
+        if(villainssmacked >= needvillainforlvlup)
+        {
+            boolean choselvlup = false;
+            addObject(new LVLUP("Drücke 1 für speedup."), getWidth()/2, getHeight()/2 - getHeight()/10);
+            addObject(new LVLUP("Drücke 2 für attack speedup."), getWidth()/2, getHeight()/2);
+            addObject(new LVLUP("Drücke 3 für dmgup."), getWidth()/2, getHeight()/2 + getHeight()/10);
+            Smacker smacker = this.getObjects(Smacker.class).get(0);
+            
+            this.repaint();
+            
+            do{
+                //Speedup
+                if(Greenfoot.isKeyDown("1"))
+                {
+                    smacker.movementspeed ++;
+                    choselvlup = true;
+                //Attackspeedup
+                } else if(Greenfoot.isKeyDown("2"))
+                {
+                    smacker.attackspeed ++;
+                    choselvlup = true;
+                //dmgup
+                } else if (Greenfoot.isKeyDown("3"))
+                {
+                    smacker.dmg ++;
+                    choselvlup = true;
+                }
+            } while (!choselvlup);
+            
+            this.removeObjects(this.getObjects(LVLUP.class));
+            
+            needvillainforlvlup += needvillainforlvlup * lvlupoffset;
+            showsmacked();
+        }
     }
     /**
      * Erzeugt gegner und Powerups und erhöht deren capazität.
@@ -72,6 +134,82 @@ public class Smacktown extends World
     {
         powerupupper();
         powerupspawner();
+        villainspawner();
+        villainpowerup();
+    }
+    /**
+     * Erzeugt villains
+     */
+    public void villainspawner()
+    {
+        if(villainlastspawn >= timer && maxVillain > currentVillain)
+        {
+            for(int i = 0; i < villainspawnrepeater; i++)
+            {
+                if(maxVillain > currentVillain)
+                {
+                    int x = 0;
+                    int y = 0;
+                    
+                    switch(Greenfoot.getRandomNumber(4))
+                    {
+                        case 0:
+                            y = Greenfoot.getRandomNumber(getHeight());
+                            break;
+                        case 1:
+                            x = getWidth();
+                            y = Greenfoot.getRandomNumber(getHeight());
+                            break;
+                        case 2:
+                            x = Greenfoot.getRandomNumber(getWidth());
+                            break;
+                        case 3:
+                            x = Greenfoot.getRandomNumber(getWidth());
+                            y = getHeight();
+                            break;
+                    }
+                    addObject(new Villain(Greenfoot.getRandomNumber(villainsunlocked)), x, y);
+                    currentVillain++; 
+                } 
+            }
+            
+            villainlastspawn -= villainspawnoffset;
+        }
+    }
+    /**
+     * Nach einer Zeit wird schneller villains gespawnd.
+     */
+    public void villainpowerup()
+    {
+        if(villainpowerup >= timer)
+        {
+            if(Greenfoot.getRandomNumber(4) >= 3)
+            {
+                villainspawnoffset--;
+                if(villainspawnoffset <= 0)
+                {
+                    villainspawnoffset = 1;
+                    villainspawnrepeater ++;
+                }
+            } else 
+            {
+                villainspawnrepeater ++;
+            }
+            maxVillain += 3;
+            
+            villainpowerupoffset ++;
+            villainpowerup -= villainpowerupoffset;
+        }
+        if(villainnewvillain >= timer)
+        {
+            if(villainsunlocked < allvillains)
+            {
+                villainsunlocked++;
+                villainnewvillain -= villainnewvillainoffset;
+            } else {
+                villainnewvillain = 0;
+            }
+        }
     }
     
     /**
@@ -81,7 +219,7 @@ public class Smacktown extends World
     {
         if(spawntimerpowerup >= timer && maxPowers > currentPowers)
         {
-            addObject(new Powerups(), Greenfoot.getRandomNumber(this.getWidth() - 60) + 30, Greenfoot.getRandomNumber(this.getHeight() - 60) + 30);
+            addObject(new Powerups(), Greenfoot.getRandomNumber(this.getWidth() - 100) + 50, Greenfoot.getRandomNumber(this.getHeight() - 100) + 50);
             
             spawntimerpowerup -= spawntimerpowerupoffset;
             currentPowers++;
@@ -122,6 +260,7 @@ public class Smacktown extends World
             ticker = 0;
             
             showTime();
+            spawner();
             
             if(timer <= 0)
             {
@@ -134,7 +273,8 @@ public class Smacktown extends World
      * Zeige die aktuelle Zeit an.
      */
     private void showTime(){
-        showText("Time: " + timer, 690, 25);
+        Message message = this.getObjects(Message.class).get(0);
+        message.setMessage("Time: " + timer);
     }
     
     /**
@@ -144,12 +284,24 @@ public class Smacktown extends World
     public void showlife()
     {
         Smacker smacker = this.getObjects(Smacker.class).get(0);
-        showText("Lifes: " + smacker.lifes, 75, 25);
+        Message message = this.getObjects(Message.class).get(1);
+        
+        message.setMessage("Lifes: " + smacker.lifes);
         
         if(smacker.lifes <= 0) 
         {
             gameend(false);
         }
+    }
+    
+    /**
+     * Zeigt an wie viele Villains gesmacked wurden.
+     */
+    public void showsmacked()
+    {
+        Message message = this.getObjects(Message.class).get(2);
+        
+        message.setMessage("Villains smacked: " + villainssmacked + " need " + (needvillainforlvlup - villainssmacked) + " more for lvl up");
     }
     
     /**

@@ -1,10 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Powerups here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * Powerups geben dem Smacker Temporere Buffs, Permanente lebeben oder änderen die Welt.
  */
 public class Powerups extends Actor
 {
@@ -80,6 +77,8 @@ public class Powerups extends Actor
         {
             ((Smacktown)getWorld()).villainssmacked += getWorld().getObjects(Villain.class).size();
             getWorld().removeObjects(getWorld().getObjects(Villain.class));
+            ((Smacktown)getWorld()).currentVillain = 0;
+            ((Smacktown)getWorld()).showsmacked();
         }
     }
     

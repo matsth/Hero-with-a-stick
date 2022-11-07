@@ -1,8 +1,8 @@
 #BlueJ class context
 comment0.target=Stick
 comment0.text=\r\n\ Der\ Stick\ ist\ die\ Waffe\ des\ Smackers\ mit\ dem\ er\ die\ Villains\ besigt.\r\n
-comment1.params=rotation\ length
-comment1.target=Stick(int,\ int)
+comment1.params=rotation\ length\ Damage\ attackspeed
+comment1.target=Stick(int,\ int,\ int,\ int)
 comment1.text=\r\n\ Das\ Bild\ des\ Sticks\ wird\ auf\ eine\ Passende\ Gr\u00F6sse\ ge\u00E4ndert.\r\n\ \r\n\ Die\ L\u00E4nge\ des\ Smackers\ wird\ durchgegeben\ und\ die\ Rotations\ des\ Sticks.\r\n\ Die\ Movedist\ ist\ die\ L\u00E4nge\ des\ Smackers*2\ durch\ die\ anzahl\ an\ Ticks\ f\u00FCr\r\n\ die\ Rotation.\r\n\ \r\n\ Die\ Bewegung\ des\ Sticks\ wird\ durch\ die\ anfangs\ rotation\ bestimmt.\ (moveset)\r\n\ \r\n\ Die\ Parameter\ rotation\ ist\ die\ anfangs\ Rotation\ und\ length\ die\ l\u00E4nge\ des\ Smackers.\r\n\ \r\n\ threshhold\ ist\ die\ h\u00E4lfte\ der\ Rotation.\ Das\ ist\ wichtig\ fals\ sich\ der\ \r\n\ Stick\ um\ die\ Ecke\ des\ Smackers\ bewegt.\r\n
 comment2.params=
 comment2.target=void\ act()
@@ -18,5 +18,5 @@ comment5.target=void\ movewithSmacker(int,\ int)
 comment5.text=\r\n\ Diese\ Funktion\ wird\ im\ Smacker\ aufgerufen\ damit\ sich\ der\ Stick\ mit\ dem\r\n\ Smacker\ mit\ bewegt.\r\n
 comment6.params=
 comment6.target=void\ smackvillain()
-comment6.text=\r\n\ \r\n
+comment6.text=\r\n\ Falls\ ein\ gegner\ getroffen\ wird\ f\u00FCge\ ihm\ schaden\ zu.\r\n
 numComments=7

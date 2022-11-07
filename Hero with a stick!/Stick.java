@@ -7,9 +7,13 @@ public class Stick extends Actor
 {
     public int rot;
     public int threshhold;
+    
     public int rotationspeed;
+    
     public int moveset;
     public int movedist;
+    
+    public int dmg;
     
     /**
      * Das Bild des Sticks wird auf eine Passende Grösse geändert.
@@ -25,16 +29,18 @@ public class Stick extends Actor
      * threshhold ist die hälfte der Rotation. Das ist wichtig fals sich der 
      * Stick um die Ecke des Smackers bewegt.
      */
-    public Stick(int rotation, int length)
+    public Stick(int rotation, int length, int Damage, int attackspeed)
     {
         GreenfootImage image = new GreenfootImage("Stick.png");
         image.scale(image.getWidth()/8, image.getHeight()/10);
         setImage(image);
         
+        dmg = Damage;
+        
         this.setRotation(rotation);
         rot = 90;
         threshhold = rot/2;
-        rotationspeed = 5;
+        rotationspeed = attackspeed;
         
         moveset = rotation;
         movedist = length*2/(rot/rotationspeed);
@@ -150,15 +156,14 @@ public class Stick extends Actor
     }
     
     /**
-     * 
+     * Falls ein gegner getroffen wird füge ihm schaden zu.
      */
     public void smackvillain()
     {
         Villain villain = (Villain)getOneIntersectingObject(Villain.class);
         
         if(villain != null){
-            getWorld().removeObject(villain);
-            ((Smacktown)getWorld()).villainssmacked++;
+            villain.takedmg(dmg);
         }
     }
 }
