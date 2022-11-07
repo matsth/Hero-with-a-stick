@@ -149,6 +149,7 @@ public class Smacker extends Actor
                 }
                 if(lastMove[2] && lastMove[3])
                 {
+                    lastMove[3] = false;
                     lastMove[2] = false;
                 }
                 
