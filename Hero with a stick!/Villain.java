@@ -28,7 +28,7 @@ public class Villain extends Actor
                 Movementspeed = 5;
                 HP = 1;
                 dealdmg = 1;
-                off = 5;
+                off = 10;
                 break;
             
             // Langsamer Villain aber dafür hat er mehr leben.
