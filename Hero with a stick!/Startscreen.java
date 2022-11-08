@@ -8,7 +8,7 @@ public class Startscreen extends World
 
     /**
      * Constructor for objects of class Startscreen.
-     * 
+     * Start Music
      */
     public Startscreen()
     {    

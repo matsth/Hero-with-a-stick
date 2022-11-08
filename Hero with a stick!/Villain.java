@@ -145,9 +145,11 @@ public class Villain extends Actor
         if(smacker != null){
             smacker.loselife(dealdmg);
             ((Smacktown)getWorld()).currentVillain --;
+            
             GreenfootSound gfs = new GreenfootSound("Stones and Water On Cement.mp3");
-            gfs.setVolume(50);
+            gfs.setVolume(70);
             gfs.play();
+            
             getWorld().removeObject(this);
         }
     }

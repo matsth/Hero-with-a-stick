@@ -15,7 +15,7 @@ public class Smacktown extends World
     private int villainspawnoffset = 4;
     private int villainspawnrepeater = 3;
     
-    private int villainpowerupoffset = 10;
+    private int villainpowerupoffset = 12;
     private int villainpowerup = starttime - villainpowerupoffset;
     
     private int allvillains = 3;
@@ -121,7 +121,7 @@ public class Smacktown extends World
                 //Attackspeedup
                 } else if(Greenfoot.isKeyDown("2"))
                 {
-                    smacker.attackspeed ++;
+                    smacker.attackspeed += 2;
                     choselvlup = true;
                 //dmgup
                 } else if (Greenfoot.isKeyDown("3"))
@@ -205,12 +205,12 @@ public class Smacktown extends World
             {
                 villainspawnrepeater ++;
             }
-            maxVillain += 3;
+            maxVillain += 2;
             
             villainpowerupoffset ++;
             villainpowerup -= villainpowerupoffset;
         }
-        if(villainnewvillain >= timer)
+        if(villainnewvillain > timer)
         {
             if(villainsunlocked < allvillains)
             {

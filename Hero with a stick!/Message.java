@@ -8,7 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Message extends Actor
 {
-        public Message(String text)
+    public Message(String text)
     {
         setMessage(text);
     }
@@ -16,7 +16,7 @@ public class Message extends Actor
     public void setMessage(String text)
     {
         GreenfootImage image = null;
-        if (text != null && !"".equals(text)) image = new GreenfootImage(text, 20, Color.BLACK, null, null);
+        image = new GreenfootImage(text, 20, Color.BLACK, null, null);
         setImage(image);
     }
 }

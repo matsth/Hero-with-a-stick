@@ -37,6 +37,7 @@ public class Smacker extends Actor
     public void act()
     {
         movement();
+        touchpowerup();
         smack();
     }
     
@@ -106,8 +107,6 @@ public class Smacker extends Actor
             this.setLocation(this.getX() + X, this.getY() + Y);
             
         }
-        
-        touchpowerup();
     }
     
     /**
