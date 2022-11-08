@@ -36,7 +36,7 @@ public class Powerups extends Actor
                 break;
         }
         
-        image.scale(image.getWidth()/15, image.getHeight()/15);
+        image.scale(image.getWidth()/30, image.getHeight()/30);
         setImage(image);
     }
     

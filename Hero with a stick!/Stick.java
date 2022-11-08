@@ -32,7 +32,7 @@ public class Stick extends Actor
     public Stick(int rotation, int length, int Damage, int attackspeed)
     {
         GreenfootImage image = new GreenfootImage("Stick.png");
-        image.scale(image.getWidth()/8, image.getHeight()/10);
+        image.scale(image.getWidth()/16, image.getHeight()/20);
         setImage(image);
         
         dmg = Damage;

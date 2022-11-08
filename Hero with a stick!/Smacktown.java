@@ -50,11 +50,20 @@ public class Smacktown extends World
      */
     public Smacktown()
     {    
-        // Create a new world with 800x500 cells with a cell size of 1x1 pixels.
+        
+        /*
         super(1200, 800, 1);
         
         GreenfootImage image = new GreenfootImage("Background.png");
         image.scale(image.getWidth()/2, image.getHeight()/2);
+        */
+       
+        super(800, 533, 1);
+        
+        GreenfootImage image = new GreenfootImage("Background.png");
+        image.scale(image.getWidth()/3, image.getHeight()/3);
+        
+        
         this.setBackground(image);
         
         prepare();

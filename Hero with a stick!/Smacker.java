@@ -20,7 +20,7 @@ public class Smacker extends Actor
     public Smacker()
     {
         GreenfootImage image = new GreenfootImage("Smacker.png");
-        image.scale(image.getWidth()/10, image.getHeight()/10);
+        image.scale(image.getWidth()/20, image.getHeight()/20);
         setImage(image);
         
         dmg = 1;

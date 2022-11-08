@@ -11,7 +11,7 @@ public class LVLUP extends Actor
         public LVLUP(String text)
     {
         GreenfootImage image = null;
-        image = new GreenfootImage(text, 100, Color.WHITE, null, null);
+        image = new GreenfootImage(text, 60, Color.WHITE, null, null);
         setImage(image);
     }
 }

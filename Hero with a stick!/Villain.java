@@ -10,6 +10,7 @@ public class Villain extends Actor
     public int HP;
     public int dealdmg;
     public int movemod = 1;
+    public int off;
     
     /**
      * Kosntruktor für Villains. Erzeugt spezielle Villains.
@@ -22,31 +23,34 @@ public class Villain extends Actor
             //Schnellerer Villain mit weniger leben
             case 2:
                 image = new GreenfootImage("Villain2.png");
-                image.scale(image.getWidth()/15, image.getHeight()/15);
+                image.scale(image.getWidth()/30, image.getHeight()/30);
                 setImage(image);
                 Movementspeed = 5;
                 HP = 1;
                 dealdmg = 1;
+                off = 5;
                 break;
             
             // Langsamer Villain aber dafür hat er mehr leben.
             case 1:
                 image = new GreenfootImage("Villain3.png");
-                image.scale(image.getWidth()/5, image.getHeight()/5);
+                image.scale(image.getWidth()/10, image.getHeight()/10);
                 setImage(image);
                 Movementspeed = 1;
                 HP = 10;
                 dealdmg = 2;
+                off = 20;
                 break;
                 
             // Normaler Villain.
             default:
                 image = new GreenfootImage("Villain1.png");
-                image.scale(image.getWidth()/10, image.getHeight()/10);
+                image.scale(image.getWidth()/20, image.getHeight()/20);
                 setImage(image);
                 Movementspeed = 2;
                 HP = 2;
                 dealdmg = 1;
+                off = 15;
                 break;
         }
     }
@@ -76,7 +80,7 @@ public class Villain extends Actor
         int X = 0;
         int Y = 0;
         
-        int offset = 20;
+        int offset = off;
         
         if(! getWorld().getObjects(Smacker.class).isEmpty())
         {
