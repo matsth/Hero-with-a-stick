@@ -1,10 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class LVLUP here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * Text + Sound for lvlup.
  */
 public class LVLUP extends Actor
 {
@@ -13,5 +10,6 @@ public class LVLUP extends Actor
         GreenfootImage image = null;
         image = new GreenfootImage(text, 60, Color.WHITE, null, null);
         setImage(image);
+        Greenfoot.playSound("army-rank-up-2-84543.mp3");
     }
 }

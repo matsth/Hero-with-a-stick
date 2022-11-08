@@ -17,6 +17,10 @@ public class Startscreen extends World
         GreenfootImage image = new GreenfootImage("Start.png");
         image.scale(image.getWidth()/3, image.getHeight()/3);
         this.setBackground(image);
+        
+        //Background Music
+        GreenfootSound backgroundMusic = new GreenfootSound("Here it Comes - TrackTribe.mp3");
+        backgroundMusic.playLoop();
     }
     
     /**

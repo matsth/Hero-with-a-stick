@@ -145,6 +145,9 @@ public class Villain extends Actor
         if(smacker != null){
             smacker.loselife(dealdmg);
             ((Smacktown)getWorld()).currentVillain --;
+            GreenfootSound gfs = new GreenfootSound("Stones and Water On Cement.mp3");
+            gfs.setVolume(50);
+            gfs.play();
             getWorld().removeObject(this);
         }
     }
@@ -155,6 +158,7 @@ public class Villain extends Actor
     public void takedmg(int dmg)
     {
         HP -= dmg;
+        Greenfoot.playSound("Wooden Bat Hits Baseball Run.mp3");
         
         if(HP <= 0)
         {

@@ -42,10 +42,12 @@ public class Powerups extends Actor
     
     /**
      * Falls der Smacker das Powerup berührt wird dise function laufen gelassen.
-     * 
      */
     public void Powerup()
     {
+        GreenfootSound gfs = new GreenfootSound("video-game-powerup-38065.mp3");
+        gfs.setVolume(40);
+        gfs.play();
         switch(powertype)
         {
             case 0:

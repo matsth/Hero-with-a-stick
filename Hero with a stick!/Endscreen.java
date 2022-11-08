@@ -19,9 +19,11 @@ public class Endscreen extends World
         if(won)
         {
             image = new GreenfootImage("Winscreen.png");
+            Greenfoot.playSound("success-fanfare-trumpets-6185.mp3");
         } else 
         {
             image = new GreenfootImage("Losescreen.png");
+            Greenfoot.playSound("wrong-buzzer-6268.mp3");
         }
         
         image.scale(image.getWidth()/3, image.getHeight()/3);

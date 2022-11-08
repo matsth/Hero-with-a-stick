@@ -86,6 +86,7 @@ public class Smacktown extends World
         
         //Add villains
         addObject(new Message("Villains smacked: " + villainssmacked + " need " + (needvillainforlvlup - villainssmacked) + " more for lvl up"), getWidth()/2, getHeight()/20);
+        
     }
     /**
      * Standard Act Methode.
