@@ -8,36 +8,36 @@ public class Smacktown extends World
 {
     public int starttime = 100;
     
-    public int maxVillain = 10;
+    private int maxVillain = 10;
     public int currentVillain = 0;
     
-    public int villainlastspawn = starttime;
-    public int villainspawnoffset = 4;
-    public int villainspawnrepeater = 3;
+    private int villainlastspawn = starttime;
+    private int villainspawnoffset = 4;
+    private int villainspawnrepeater = 3;
     
-    public int villainpowerupoffset = 10;
-    public int villainpowerup = starttime - villainpowerupoffset;
+    private int villainpowerupoffset = 10;
+    private int villainpowerup = starttime - villainpowerupoffset;
     
-    public int allvillains = 3;
-    public int villainnewvillainoffset = starttime/allvillains;
-    public int villainnewvillain = starttime - villainnewvillainoffset;
-    public int villainsunlocked = 1;
+    private int allvillains = 3;
+    private int villainnewvillainoffset = starttime/allvillains;
+    private int villainnewvillain = starttime - villainnewvillainoffset;
+    private int villainsunlocked = 1;
     
     public int villainssmacked = 0;
-    public int needvillainforlvlup = 5;
-    public double lvlupoffset = 1.5;
+    private int needvillainforlvlup = 5;
+    private double lvlupoffset = 1.5;
     
     public int timer = starttime;
     private int ticker = 0;
     
-    public int maxPowers = 3;
+    private int maxPowers = 3;
     public int currentPowers = 0;
 
-    public int Powerincreasoffset = 20;
-    public int powerincreas = starttime - Powerincreasoffset;
+    private int Powerincreasoffset = 20;
+    private int powerincreas = starttime - Powerincreasoffset;
     
-    public int spawntimerpowerup = starttime;
-    public int spawntimerpowerupoffset = 8;
+    private int spawntimerpowerup = starttime;
+    private int spawntimerpowerupoffset = 8;
     
     public int speedboost = starttime;
     public int smackboost = starttime;
